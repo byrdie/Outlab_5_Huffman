@@ -3,6 +3,7 @@ package csci232_outlab_5_huffman;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
@@ -20,14 +21,18 @@ public class Driver {
     public static void main(String[] args) {
        char[] uncrypt = readFile(inputPath);
        /*print file*/
+       
        for(int i = 0; i < uncrypt.length; i++){
            if(i % 80 == 0) System.out.println();
            System.out.print(uncrypt[i]);
        }
        System.out.println();
        
+       /*find frequencies and show in a histogram*/
        int[] charFreq = calculateFrequency(uncrypt);
        printHistogram(charFreq, uncrypt.length);
+       
+       PriorityQueue<Node> priority = new PriorityQueue<>();
     }
     
     public static char[] readFile(String path){
