@@ -11,18 +11,17 @@ package csci232_outlab_5_huffman;
  * @author Roy Smart
  */
 public class Node implements Comparable<Node>{
-    public char data;
-    public int value = 0;
+    public String data;
     public int freq;
+    public byte code;
     public Node left;
     public Node right;
     public Node parent;
     public boolean isLeaf = false;
     
-    public Node(char d, int f){
+    public Node(String d, int f){
         data = d;
         freq = f;
-        if(d != 0x0) isLeaf = true;
         left = null;
         right = null;
         parent = null;

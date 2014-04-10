@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class Driver {
     static String inputPath = "input.txt";
+    static String encodedPath = "encoded.txt";
     static int startChar = (int)' ';
     static int endChar = (int)'~';
     static int treeSize =  endChar - startChar;
@@ -31,8 +32,12 @@ public class Driver {
        /*find frequencies and show in a histogram*/
        int[] charFreq = calculateFrequency(uncrypt);
        printHistogram(charFreq, uncrypt.length);
+       HuffmanTree huffman = new HuffmanTree(charFreq);
        
-       PriorityQueue<Node> priority = new PriorityQueue<>();
+       /*compress string to file*/
+       FileOut encodedWriter = new FileOut(encodedPath);
+       huffman.encodeString(uncrypt, encodedWriter);      
+       
     }
     
     public static char[] readFile(String path){
