@@ -1,6 +1,8 @@
 
 package csci232_outlab_5_huffman;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.PriorityQueue;
 
 /**
@@ -60,7 +62,7 @@ public class HuffmanTree {
         return comboNode;
     }
     
-    public void encodeString(char[] string, FileOut writer){
+    public void encodeFile(char[] string, FileOut writer){
         byte nextByte = 0x00;
         int bitShift = 0;
         for(int i = 0; i <  string.length; i++){                                   
@@ -76,5 +78,39 @@ public class HuffmanTree {
                 bitShift = (bitShift + 1)%8;
             }
         }
+    }
+    
+    @SuppressWarnings("empty-statement")
+    public void decodeFile(FileReader scanner){
+        byte nextByte;
+        byte mask;
+        Node node = root;
+        
+        try{
+        while(scanner.ready()){
+            nextByte = (byte)scanner.read();
+            nextByte = nextByte;
+            mask = (byte)0x80;
+            for(int i = 0; i < 8; i++){
+                if(node.isLeaf){
+                    System.out.print(node.data);
+                    node = root;
+                }
+                byte nextBit = (byte)(mask & nextByte);
+                mask = (byte)(mask >> 1);
+                mask = (byte)(mask & 0x7F);
+                if(nextBit == 0){
+                    node = node.left;
+                }
+                else{
+                    node = node.right;
+                }
+            }
+        }
+        }
+        catch(IOException e){
+            
+        }
+        
     }
 }

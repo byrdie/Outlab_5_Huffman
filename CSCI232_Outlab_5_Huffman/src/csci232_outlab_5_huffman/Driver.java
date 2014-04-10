@@ -3,7 +3,7 @@ package csci232_outlab_5_huffman;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.PriorityQueue;
+import java.io.FileReader;
 import java.util.Scanner;
 
 /**
@@ -36,8 +36,14 @@ public class Driver {
        
        /*compress string to file*/
        FileOut encodedWriter = new FileOut(encodedPath);
-       huffman.encodeString(uncrypt, encodedWriter);      
-       
+       huffman.encodeFile(uncrypt, encodedWriter); 
+       try{
+            FileReader encodedReader = new FileReader(new File(encodedPath));
+            huffman.decodeFile(encodedReader);
+       }
+       catch(FileNotFoundException e){
+           
+       }
     }
     
     public static char[] readFile(String path){
