@@ -14,6 +14,7 @@ public class Node implements Comparable<Node>{
     public String data;
     public int freq;
     public byte code;
+    public int[] lookup;
     public Node left;
     public Node right;
     public Node parent;

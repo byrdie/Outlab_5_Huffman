@@ -62,11 +62,26 @@ public class HuffmanTree {
         return comboNode;
     }
     
+    public void buildLookupTable(){
+        int[] lookup = 10  ;
+        Node nodes;
+        int bitShift;
+        for(int i = 0; i < treeSize; i++){
+            Node startNode = nodes[i];
+            node = startNode;
+            while(node != root){
+                
+            }
+        }
+    }
+    
     public void encodeFile(char[] string, FileOut writer){
         byte nextByte = 0x00;
         int bitShift = 0;
+        int startBit;
         for(int i = 0; i <  string.length; i++){                                   
             Node node = nodes[(int)string[i] - startChar];
+            startBit = bitShift;
             while(node != root){                
                 byte nextBit= (byte)(node.code << bitShift);
                 nextByte = (byte)(nextByte | nextBit);
