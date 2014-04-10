@@ -87,14 +87,15 @@ public class HuffmanTree {
                 stack.push(node);
                 node = node.parent;
             }
-            while(!stack.empty()){                
-                byte nextBit= (byte)(node.code << bitShift);
+            while(!stack.empty()){
+                node = stack.pop();
+                byte nextBit = (byte)(node.code);
+                nextByte = (byte)(nextByte << 1);
                 nextByte = (byte)(nextByte | nextBit);
                 if(bitShift == 7) {
                     writer.writer((char)(nextByte));
                     nextByte = 0x00;
-                }
-                node = stack.pop();
+                }                
                 bitShift = (bitShift + 1)%8;
             }
         }
