@@ -3,7 +3,9 @@ package csci232_outlab_5_huffman;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  *
@@ -63,14 +65,14 @@ public class HuffmanTree {
     }
     
     public void buildLookupTable(){
-        int[] lookup = 10  ;
-        Node nodes;
-        int bitShift;
+        int[] lookup = new int[8];
+        Node node;
         for(int i = 0; i < treeSize; i++){
+            int j = 0;
             Node startNode = nodes[i];
             node = startNode;
             while(node != root){
-                
+                lookup[i] = node.code;
             }
         }
     }
@@ -78,18 +80,21 @@ public class HuffmanTree {
     public void encodeFile(char[] string, FileOut writer){
         byte nextByte = 0x00;
         int bitShift = 0;
-        int startBit;
+        Stack<Node> stack  = new Stack();
         for(int i = 0; i <  string.length; i++){                                   
             Node node = nodes[(int)string[i] - startChar];
-            startBit = bitShift;
-            while(node != root){                
+            while(node != root){
+                stack.push(node);
+                node = node.parent;
+            }
+            while(!stack.empty()){                
                 byte nextBit= (byte)(node.code << bitShift);
                 nextByte = (byte)(nextByte | nextBit);
                 if(bitShift == 7) {
                     writer.writer((char)(nextByte));
                     nextByte = 0x00;
                 }
-                node = node.parent;
+                node = stack.pop();
                 bitShift = (bitShift + 1)%8;
             }
         }
@@ -105,7 +110,7 @@ public class HuffmanTree {
         while(scanner.ready()){
             nextByte = (byte)scanner.read();
             nextByte = nextByte;
-            mask = (byte)0x80;
+            mask = (byte)0x80;;
             for(int i = 0; i < 8; i++){
                 if(node.isLeaf){
                     System.out.print(node.data);
