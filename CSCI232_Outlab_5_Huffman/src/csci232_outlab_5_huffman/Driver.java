@@ -20,19 +20,24 @@ public class Driver {
     static int treeSize =  endChar - startChar;
     
     public static void main(String[] args) {
+       System.out.println("Reading file...");
        char[] uncrypt = readFile(inputPath);
        /*print file*/
        
        for(int i = 0; i < uncrypt.length; i++){
-           if(i % 80 == 0) System.out.println();
+           if(i % 190 == 0) System.out.println();
            System.out.print(uncrypt[i]);
        }
        System.out.println();
        
        /*find frequencies and show in a histogram*/
+       System.out.print("Calculating letter frequencies...");
        int[] charFreq = calculateFrequency(uncrypt);
+       System.out.println("\nHistorgram of relative letter frequencies");
        printHistogram(charFreq, uncrypt.length);
        HuffmanTree huffman = new HuffmanTree(charFreq);
+       
+       huffman.buildLookupTable();
        
        /*compress string to file*/
        FileOut encodedWriter = new FileOut(encodedPath);
@@ -76,7 +81,7 @@ public class Driver {
         }
         System.out.println();
         int increment = size / 100;
-        for(int i = 1; i < 11; i++){
+        for(int i = 0; i < 11; i++){
             int level = increment * i;
             for(int j = 0; j < treeSize; j++){
                 if(frequency[j] > level){
