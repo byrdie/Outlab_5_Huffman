@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Driver {
     static String inputPath = "input.txt";
     static String encodedPath = "encoded.txt";
+    static String outputPath = "output.txt";
     static int startChar = (int)' ';
     static int endChar = (int)'~';
     static int treeSize =  endChar - startChar;
@@ -41,10 +42,11 @@ public class Driver {
        
        /*compress string to file*/
        FileOut encodedWriter = new FileOut(encodedPath);
+       FileOut outputWriter = new FileOut(outputPath);
        huffman.encodeFile(uncrypt, encodedWriter); 
        try{
             FileReader encodedReader = new FileReader(new File(encodedPath));
-            huffman.decodeFile(encodedReader);
+            huffman.decodeFile(encodedReader, outputWriter);
        }
        catch(FileNotFoundException e){
            
@@ -63,6 +65,7 @@ public class Driver {
         catch(FileNotFoundException e){
             System.out.print("Input file not found...");
         }
+        sequence = sequence + " ";  //add extra so it prints out the last character
         return sequence.toCharArray();
     }
     

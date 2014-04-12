@@ -98,7 +98,7 @@ public class HuffmanTree {
                 byte nextBit = (byte) (node.code);
                 nextByte = (byte) (nextByte << 1);
                 nextByte = (byte) (nextByte | nextBit);
-                if (bitShift == 7) {
+                if (bitShift == 7) {  
                     writer.writer((char) (nextByte));
                     nextByte = 0x00;
                 }
@@ -108,7 +108,7 @@ public class HuffmanTree {
     }
 
     @SuppressWarnings("empty-statement")
-    public void decodeFile(FileReader scanner) {
+    public void decodeFile(FileReader scanner, FileOut writer) {
         byte nextByte;
         byte mask;
         Node node = root;
@@ -117,14 +117,14 @@ public class HuffmanTree {
         try {
             while (scanner.ready()) {
                 nextByte = (byte) scanner.read();
-                nextByte = nextByte;
+
                 mask = (byte) 0x80;;
                 for (int i = 0; i < 8; i++) {
                     if (node.isLeaf) {
-                        System.out.print(node.data);
+                        writer.writer(node.data);
                         node = root;
-                        if (carriageReturn % 190 == 0) {
-                            System.out.println();
+                        if (carriageReturn % 100 == 0) {
+                            writer.newln();                            
                         }
                         carriageReturn++;
                     }

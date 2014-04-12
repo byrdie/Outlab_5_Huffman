@@ -43,7 +43,7 @@ public class FileOut{
    public void writer(String out)
    {
      
-         fout.println(out);
+         fout.print(out);
       
    }
    public void writer(int out)
@@ -69,6 +69,9 @@ public class FileOut{
      
          fout.println(out);
       
+   }
+   public void newln(){
+       fout.println();
    }
    public String reader(){
       try{
